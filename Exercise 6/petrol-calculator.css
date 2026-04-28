@@ -1,0 +1,244 @@
+/* ============================================================
+   Petrol Calculator — Stylesheet
+   Theme: Clean industrial / utilitarian with warm amber accents
+   ============================================================ */
+
+/* --- CSS Variables ----------------------------------------- */
+:root {
+  --bg:           #f4f1ec;       /* Warm off-white background   */
+  --card-bg:      #ffffff;       /* Card surface                */
+  --text:         #1a1a1a;       /* Primary text                */
+  --text-muted:   #6b6b6b;       /* Secondary / label text      */
+  --accent:       #c8720a;       /* Amber petrol accent         */
+  --accent-hover: #a55c06;       /* Darker amber on hover       */
+  --accent-light: #fdf1e3;       /* Soft amber tint             */
+  --border:       #e0dbd2;       /* Subtle field border         */
+  --focus-ring:   #c8720a55;     /* Focus glow colour           */
+  --shadow:       0 8px 40px rgba(0,0,0,0.10);
+  --radius:       12px;
+  --radius-sm:    8px;
+}
+
+/* --- Reset & Base ------------------------------------------ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Page layout: vertically and horizontally centred */
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Subtle diagonal stripe texture on background */
+  background-color: var(--bg);
+  background-image: repeating-linear-gradient(
+    135deg,
+    transparent,
+    transparent 24px,
+    rgba(0,0,0,0.025) 24px,
+    rgba(0,0,0,0.025) 25px
+  );
+
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  padding: 2rem;
+}
+
+/* --- Card -------------------------------------------------- */
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 2.5rem 2.5rem 2rem;
+  width: 100%;
+  max-width: 420px;
+
+  /* Staggered entrance animation */
+  animation: fadeUp 0.5s ease both;
+}
+
+/* --- Card Header ------------------------------------------- */
+.card__header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Petrol pump icon */
+.card__icon {
+  display: block;
+  font-size: 2.4rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Main title uses serif display font */
+.card__title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+/* Subtitle underneath the title */
+.card__subtitle {
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 300;
+}
+
+/* --- Input Section ----------------------------------------- */
+.card__inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Individual field wrapper */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+/* Field label */
+.field__label {
+  font-size: 0.78rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+/* Wrapper holds the prefix icon and input side by side */
+.field__wrapper {
+  display: flex;
+  align-items: stretch;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Focus styling applied to the wrapper when input is focused */
+.field__wrapper:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+/* Currency / unit prefix badge */
+.field__prefix {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.75rem;
+  background: var(--accent-light);
+  color: var(--accent);
+  font-weight: 500;
+  font-size: 0.9rem;
+  border-right: 1.5px solid var(--border);
+  user-select: none;
+  min-width: 2.5rem;
+}
+
+/* Number input field */
+.field__input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 0.7rem 0.9rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  color: var(--text);
+  background: transparent;
+  -moz-appearance: textfield; /* Hide spinner in Firefox */
+}
+
+/* Hide number input spinners in Chrome / Safari */
+.field__input::-webkit-outer-spin-button,
+.field__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+/* --- Calculate Button --------------------------------------- */
+.btn {
+  width: 100%;
+  padding: 0.85rem;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+
+  /* Smooth transition for hover effects */
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+
+/* Button hover effect: darken and lift */
+.btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(200, 114, 10, 0.35);
+}
+
+/* Button active / click effect: press down */
+.btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* --- Result Paragraph -------------------------------------- */
+/* Hidden by default until JavaScript adds the visible class  */
+.result {
+  margin-top: 1.25rem;
+  padding: 0.9rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+
+  /* Takes up space even when hidden to avoid layout jump */
+  min-height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Class added by JS to show the result */
+.result--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Success styling: amber tint background */
+.result--success {
+  background: var(--accent-light);
+  color: var(--accent);
+  border: 1px solid #e8c08a;
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.15rem;
+}
+
+/* --- Entrance Animation ------------------------------------ */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

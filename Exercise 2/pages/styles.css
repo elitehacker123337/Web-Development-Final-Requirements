@@ -1,0 +1,50 @@
+/* style sheet*/
+
+body{
+    margin: 0px;
+
+}
+h1{
+    text-align: center;
+    color: red;
+}
+
+h3{ 
+    color: hsl(219, 100%, 47%);
+}
+p{ 
+    text-align: justify;
+}
+
+li{ 
+    text-align: justify;
+}
+
+.button a{
+  background-color: rgb(66, 66, 81);
+  color: rgb(88, 70, 202);
+  padding: 10px;
+}
+
+.navbar ul{ 
+    list-style-type: none;
+    background-color: hsl(0, 0%, 31%);
+    padding: 0px;
+    margin: 0px; 
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar a{ 
+    color: white;
+    text-decoration: none; 
+    padding: 15px;
+    display: block;
+    text-align: center;
+}
+
+.navbar a:hover{
+    background-color: hsl(0, 0%, 10%)
+}
+

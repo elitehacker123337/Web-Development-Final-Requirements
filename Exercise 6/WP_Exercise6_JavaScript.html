@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Petrol Calculator</title>
+
+    <!-- Link to external stylesheet -->
+    <link rel="stylesheet" href="petrol-calculator.css" />
+
+    <!-- Google Fonts: DM Serif Display for headings, DM Sans for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Main calculator card -->
+    <main class="card">
+      <!-- Header section with icon and title -->
+      <header class="card__header">
+        <span class="card__icon">⛽</span>
+        <h1 class="card__title">Petrol Calculator</h1>
+        <p class="card__subtitle">Estimate your fuel cost instantly</p>
+      </header>
+
+      <!-- Input fields section -->
+      <section class="card__inputs">
+        <!-- Field: cost per litre -->
+        <div class="field">
+          <label class="field__label" for="costPerLitre"
+            >Cost per litre (R)</label
+          >
+          <div class="field__wrapper">
+            <!-- Currency prefix symbol -->
+            <span class="field__prefix">R</span>
+            <!-- Default value set to 1.72 as per instructions -->
+            <input
+              class="field__input"
+              type="number"
+              id="costPerLitre"
+              min="0"
+              step="0.01"
+              value="1.72"
+            />
+          </div>
+        </div>
+
+        <!-- Field: number of litres purchased -->
+        <div class="field">
+          <label class="field__label" for="litres">Litres purchased</label>
+          <div class="field__wrapper">
+            <!-- Litre suffix symbol -->
+            <span class="field__prefix">L</span>
+            <!-- Default value set to 0 as per instructions -->
+            <input
+              class="field__input"
+              type="number"
+              id="litres"
+              min="0"
+              step="0.1"
+              value="0"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- Calculate button — triggers the calculation function on click -->
+      <button class="btn" id="calculateBtn" onclick="calculateCost()">
+        Calculate Total
+      </button>
+
+      <!-- Result display paragraph — updated by JavaScript -->
+      <!-- Hidden by default; shown once a calculation is made -->
+      <p class="result" id="result"></p>
+    </main>
+
+    <script>
+      /**
+       * calculateCost()
+       * Reads the cost-per-litre and litres values,
+       * multiplies them together, and displays the result.
+       */
+      function calculateCost() {
+        // Retrieve the value from the cost-per-litre input field
+        const costPerLitre = parseFloat(
+          document.getElementById("costPerLitre").value,
+        );
+
+        // Retrieve the value from the litres input field
+        const litres = parseFloat(document.getElementById("litres").value);
+
+        // Reference to the result paragraph element
+        const resultEl = document.getElementById("result");
+
+        // Validate that both inputs are valid positive numbers
+        if (
+          isNaN(costPerLitre) ||
+          isNaN(litres) ||
+          costPerLitre < 0 ||
+          litres < 0
+        ) {
+          resultEl.textContent = "Please enter valid positive numbers.";
+          resultEl.classList.add("result--visible");
+          resultEl.classList.remove("result--success");
+          return;
+        }
+
+        // Calculate total cost: price per litre × number of litres
+        const total = costPerLitre * litres;
+
+        // Display the result formatted to 2 decimal places
+        resultEl.textContent = `Total cost: R${total.toFixed(2)}`;
+
+        // Add classes to make the result visible with success styling
+        resultEl.classList.add("result--visible", "result--success");
+      }
+
+      /**
+       * Allow pressing Enter in either input field to trigger calculation
+       */
+      document
+        .getElementById("costPerLitre")
+        .addEventListener("keydown", function (e) {
+          if (e.key === "Enter") calculateCost();
+        });
+
+      document
+        .getElementById("litres")
+        .addEventListener("keydown", function (e) {
+          if (e.key === "Enter") calculateCost();
+        });
+    </script>
+  </body>
+</html>
